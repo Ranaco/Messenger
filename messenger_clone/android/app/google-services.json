@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "697410549655",
+    "project_id": "messenger-clone-c855d",
+    "storage_bucket": "messenger-clone-c855d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:697410549655:android:459b115db3178e2bef76d2",
+        "android_client_info": {
+          "package_name": "com.ranaco.messenger_clone"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "697410549655-2si4loomi0db90brc50to5ihvv27ipng.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBa8Kmj3geycYHvyluAHRfeGesRDbfp5bc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "697410549655-2si4loomi0db90brc50to5ihvv27ipng.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
