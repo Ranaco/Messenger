@@ -1,6 +1,8 @@
 import 'dart:async';
 import 'dart:developer';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:messenger_clone/app/app.locator.dart';
 import 'package:messenger_clone/app/app.router.dart';
 import 'package:messenger_clone/model/user_profile_model.dart';
@@ -28,16 +30,26 @@ class SearchPageViewModel extends BaseViewModel{
   searchForUser() async {
     userTiles.clear();
     notifyListeners();
-    log(search.trim().isEmpty.toString());
-    if(search.isNotEmpty){
-      var response = await Supabase.instance.client.from('Users').select().textSearch('name', search).execute();
-      response.data.forEach((e) {
-        UserProfile toAdd = UserProfile.fromJson(e);
-        userTiles.add(toAdd);
-        notifyListeners();
+    try{
+      log(search.trim().isEmpty.toString());
+      if(search.isNotEmpty){
+        var response = await DataBaseService().read(from: "Users", fields: search.toLowerCase(), where: "queryName");
+        response.forEach((e) => {
+          userTiles.add(e.data()),
+        });
+        if(userTiles.isNotEmpty){
+          streamController.add('done');
+        } else {
+          streamController.add('waiting');
+        }
+      }
+
+      userTiles.forEach((element) {
+        log(element.toString());
       });
+    }catch(err){
+      log(err.toString());
     }
-    log(userTiles.length.toString());
   }
 
   popPage() async {

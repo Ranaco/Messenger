@@ -14,6 +14,7 @@ class DataBaseService {
       try{
        var res = await client.collection(from).add(data is Map ? data : data.toJson()).then((value) async {
         data.docId = value.id;
+        data.queryName = data.name.toLowerCase();
         log(data.toString());
          await update(data, collection: from, field: "field");
           locator<SnackbarService>().showSnackbar(message: successMessage);
@@ -26,11 +27,12 @@ class DataBaseService {
 
 
   Future read({required String from,
+    String where = "id",
     String fields = "",
     }) async {
     var rep;
-    var response = await client.collection(from).where("id", isEqualTo: fields).get().then((value) {
-      rep =  value.docs.first.data();
+    var response = await client.collection(from).where(where, isGreaterThanOrEqualTo: fields).get().then((value) {
+      rep =  value.docs;
     });
     return rep;
   }
@@ -40,7 +42,11 @@ class DataBaseService {
       {required String collection,
         required String field,
   }) async {
-    await client.collection(collection).doc(data.docId).update(data.toJson());
+    try{
+      await client.collection(collection).doc(data.docId).update(data.toJson());
+    }catch(err){
+      log(err.toString());
+    }
   }
 
   // PostgrestResponse _afterExecution(PostgrestResponse response,

@@ -19,8 +19,8 @@ class BioPicPageViewModel extends BaseViewModel{
 
   initBioPicPage() async {
     setBusy(true);
-    var response = await DataBaseService().read(from: 'Users', fields: FirebaseAuth.instance.currentUser!.uid);
-    userProfile = UserProfile.fromJson(response);
+    var response = await DataBaseService().read(from: 'Users', fields: FirebaseAuth.instance.currentUser!.uid, where: "id");
+    userProfile = UserProfile.fromJson(response.first.data());
     setBusy(false);
   }
 
@@ -41,7 +41,7 @@ class BioPicPageViewModel extends BaseViewModel{
     DataBaseService().update(userProfile.copyWith(avatar_url: imageUrl, bio: bio), collection: "Users", field: userProfile.id, ).then((value) {
       locator<AppRouter>().navigate(const BasePageRoute());
     });
-  }
+  }//`\_(>_<)_/`
     else if(imageFile == null){
       locator<AppRouter>().navigate(const BasePageRoute());
     }

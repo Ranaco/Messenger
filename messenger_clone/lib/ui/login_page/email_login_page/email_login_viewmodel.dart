@@ -17,7 +17,7 @@ class EmailLoginViewModel extends BaseViewModel{
     notifyListeners();
   }
   takeToSignUpPage() async {
-    await _appRouter.navigate(SignupRoute());
+    await _appRouter.replace(SignupRoute());
   }
 
   popPage() async {

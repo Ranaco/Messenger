@@ -31,6 +31,7 @@ class SearchPageView extends StatelessWidget {
                         (BuildContext context, AsyncSnapshot snapshot) {
                       if (snapshot.data == 'waiting') {
                         return Expanded(
+                          flex: 9,
                             child: Container(
                                 color: AppStyle.primaryColor,
                                 child: GridView.builder(
@@ -51,6 +52,16 @@ class SearchPageView extends StatelessWidget {
                                         ),
                                       );
                                     })));
+                      } else if(snapshot.data == "done"){
+                        return  Expanded(
+                          child: Scaffold(
+                            body: Center(
+                              child: Text(
+                                model.userTiles.length.toString(),
+                              ),
+                            ),
+                          ),
+                        );
                       }
                       return const SizedBox();
                     })

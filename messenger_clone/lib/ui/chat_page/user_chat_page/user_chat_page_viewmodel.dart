@@ -16,7 +16,7 @@ class UserChatPageViewModel extends BaseViewModel{
 
  String msg = "";
 
- String uri = "https://messengerclonebyrana.herokuapp.com/";
+ String uri = "http://10.0.2.2:3500";
 
  late Socket socket;
 

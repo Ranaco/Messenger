@@ -7,12 +7,14 @@ class UserProfile {
   String? avatar_url;
   String docId;
   List? friend;
+  String? queryName;
   String? bio;
   UserProfile(
       {required this.name,
       required this.email,
       this.avatar_url,
       this.bio,
+      this.queryName,
       required this.docId,
       this.friend,
       required this.id});
@@ -20,6 +22,7 @@ class UserProfile {
   factory UserProfile.fromJson(Map<String, dynamic> json) {
     return UserProfile(
         name: json['name'],
+        queryName: json['queryName'],
         email: json['email'],
         id: json['id'],
         docId: json['docId'],
@@ -32,6 +35,7 @@ class UserProfile {
     return {
       'name': name,
       'email': email,
+      'queryName': queryName,
       'id': id,
       'docId': docId,
       'avatar_url': avatar_url,
@@ -62,6 +66,7 @@ class UserProfile {
     String? docId,
     String? avatar_url,
     String? email,
+    String? queryName,
     String? bio,
     List? friend,
   }) {
@@ -72,7 +77,9 @@ class UserProfile {
         id: id ?? this.id,
         avatar_url: avatar_url ?? this.avatar_url,
         bio: bio ?? this.bio,
+        queryName: queryName ?? this.queryName,
         friend: friend ?? this.friend);
+
   }
 
   @override
