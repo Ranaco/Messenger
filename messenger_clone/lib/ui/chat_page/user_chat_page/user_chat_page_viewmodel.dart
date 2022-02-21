@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:messenger_clone/app/app.locator.dart';
 import 'package:messenger_clone/app/app.router.dart';
 import 'package:messenger_clone/widgets/chat_bubble/chat_bubble.dart';
@@ -11,8 +12,8 @@ class UserChatPageViewModel extends BaseViewModel{
   final _appRouter = locator<AppRouter>();
 
  String name = "";
- String imageUrl = "";
- UserChatPageViewModel({required this.name, required this.imageUrl});
+ String? imageUrl;
+ UserChatPageViewModel({required this.name, this.imageUrl});
 
  String msg = "";
 
@@ -30,8 +31,8 @@ class UserChatPageViewModel extends BaseViewModel{
     socket.onConnect((data) => log(socket.id.toString()));
     setBusy(false);
     socket.emit("user", {
-      "name": "hello",
-      "id":'hothi',
+      "name": "rana",
+      "id": FirebaseAuth.instance.currentUser!.uid,
     });
     socket.on('dis', (data) => log(data.toString()));
     socket.on('users', (data) => log(data.toString()));
@@ -73,6 +74,7 @@ class UserChatPageViewModel extends BaseViewModel{
         "msg": msg,
         "received" : false,
         "id": socket.id,
+        "uid": FirebaseAuth.instance.currentUser!.uid
       };
       socket.emit('msg', data);
       notifyListeners();

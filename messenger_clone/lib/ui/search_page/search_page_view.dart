@@ -5,6 +5,8 @@ import 'package:messenger_clone/widgets/hero_icon/hero_icon.dart';
 import 'package:messenger_clone/widgets/hero_icon/hero_icons.dart';
 import 'package:stacked/stacked.dart';
 
+import '../../widgets/profile_tile/profile_tile.dart';
+
 class SearchPageView extends StatelessWidget {
   const SearchPageView({Key? key}) : super(key: key);
 
@@ -55,11 +57,16 @@ class SearchPageView extends StatelessWidget {
                       } else if(snapshot.data == "done"){
                         return  Expanded(
                           child: Scaffold(
-                            body: Center(
-                              child: Text(
-                                model.userTiles.length.toString(),
-                              ),
-                            ),
+                            body: GridView.builder(
+                                itemCount: model.userTiles.length,
+                                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2, ), itemBuilder: (context, index){
+                                  return Padding(
+                                    padding:  const EdgeInsets.all(8.0),
+                                    child: ProfileTile(id: model.userTiles[index].id,name: model.userTiles[index].name,bio: model.userTiles[index].bio, imageUrl: model.userTiles[index].avatar_url, callBack: (String id){
+                                        model.updateUser(id);
+                                    }),
+                                  );
+                            })
                           ),
                         );
                       }

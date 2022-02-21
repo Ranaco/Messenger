@@ -176,7 +176,7 @@ class LoginPageRoute extends PageRouteInfo<void> {
 /// generated route for
 /// [UserChatPageView]
 class UserChatPageRoute extends PageRouteInfo<UserChatPageRouteArgs> {
-  UserChatPageRoute({Key? key, required String name, required String imageUrl})
+  UserChatPageRoute({Key? key, required String name, String? imageUrl})
       : super(UserChatPageRoute.name,
             path: '/user-chat-page-view',
             args: UserChatPageRouteArgs(
@@ -186,14 +186,13 @@ class UserChatPageRoute extends PageRouteInfo<UserChatPageRouteArgs> {
 }
 
 class UserChatPageRouteArgs {
-  const UserChatPageRouteArgs(
-      {this.key, required this.name, required this.imageUrl});
+  const UserChatPageRouteArgs({this.key, required this.name, this.imageUrl});
 
   final Key? key;
 
   final String name;
 
-  final String imageUrl;
+  final String? imageUrl;
 
   @override
   String toString() {

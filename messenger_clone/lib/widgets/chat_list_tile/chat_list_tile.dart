@@ -13,15 +13,14 @@ class CustomListTile extends StatelessWidget {
     this.date,
     this.received = false,
     this.lastChat,
-    this.userImage =
-        "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png",
+    this.userImage,
     this.seen = false,
     Key? key,
   }) : super(key: key);
 
   final String name;
   final String? lastChat;
-  final String userImage;
+  final String? userImage;
   final bool received;
   final bool seen;
   final DateTime? date;
@@ -33,7 +32,7 @@ class CustomListTile extends StatelessWidget {
     return ViewModelBuilder<ChatListTileViewModel>.reactive(viewModelBuilder: () => ChatListTileViewModel(), builder: (context, model, child){
       return GestureDetector(
         onTap: (){
-          model.takeToUserChatPage(name, imageUrl: userImage);
+          model.takeToUserChatPage(name, imageUrl: userImage!);
         },
         child: Dismissible(
           background: Row(
@@ -111,7 +110,7 @@ class CustomListTile extends StatelessWidget {
                   child: ListTile(
                     style: ListTileStyle.list,
                     leading: ClipOval(
-                      child:Image.network(userImage),
+                      child: userImage == null ? Image.asset('assets/images/no_profile.jpg') : Image.network(userImage!),
                     ),
                     title: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,

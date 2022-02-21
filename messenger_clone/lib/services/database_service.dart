@@ -29,10 +29,13 @@ class DataBaseService {
   Future read({required String from,
     String where = "id",
     String fields = "",
+    bool greaterThan = true,
     }) async {
     var rep;
-    var response = await client.collection(from).where(where, isGreaterThanOrEqualTo: fields).get().then((value) {
+    var response =  greaterThan ? await client.collection(from).where(where, isGreaterThanOrEqualTo: fields).get().then((value) {
       rep =  value.docs;
+    }) : await client.collection(from).where(where, isEqualTo: fields).get().then((value) {
+      rep = value.docs;
     });
     return rep;
   }
@@ -44,7 +47,9 @@ class DataBaseService {
   }) async {
     try{
       await client.collection(collection).doc(data.docId).update(data.toJson());
+      print('done');
     }catch(err){
+      print('wait');
       log(err.toString());
     }
   }
